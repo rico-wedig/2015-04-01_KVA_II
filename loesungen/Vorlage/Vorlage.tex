@@ -1,0 +1,130 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{fancyhdr}
+\usepackage{fancyheadings}
+\usepackage[ngerman,german]{babel}
+\usepackage{german}
+\usepackage[utf8]{inputenc}
+%\usepackage[latin1]{inputenc}
+\usepackage[active]{srcltx}
+\usepackage{algorithm}
+%\usepackage[noend]{algorithmic}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{ifthen}
+\usepackage{listings}
+\usepackage{struktex}
+\usepackage{hyperref}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%% EDIT THIS PART %%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\Fach}{Algorithmen und Programmierung}
+\newcommand{\Name}{Max Mustermann}
+\newcommand{\Seminargruppe}{2}
+\newcommand{\Matrikelnummer}{1337}
+\newcommand{\Semester}{WS 12/13}
+\newcommand{\Uebungsblatt}{0} %  <-- UPDATE ME
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setlength{\parindent}{0em}
+\topmargin -1.0cm
+\oddsidemargin 0cm
+\evensidemargin 0cm
+\setlength{\textheight}{9.2in}
+\setlength{\textwidth}{6.0in}
+
+%%%%%%%%%%%%%%%
+%% Aufgaben-COMMAND
+\newcommand{\Aufgabe}[1]{
+  {
+  \vspace*{0.5cm}
+  \textsf{\textbf{Aufgabe #1}}
+  \vspace*{0.2cm}
+  
+  }
+}
+%%%%%%%%%%%%%%
+\hypersetup{
+    pdftitle={\Fach{}: Übungsblatt \Uebungsblatt{}},
+    pdfauthor={\Name},
+    pdfborder={0 0 0}
+}
+
+\lstset{ %
+language=java,
+basicstyle=\footnotesize\tt,
+showtabs=false,
+tabsize=2,
+captionpos=b,
+breaklines=true,
+extendedchars=true,
+showstringspaces=false,
+flexiblecolumns=true,
+}
+
+\title{Übungsblatt \Uebungsblatt{}}
+\author{\Name{}}
+
+\begin{document}
+\thispagestyle{fancy}
+\lhead{\sf \large \Fach{} \\ \small \Name{} - \Matrikelnummer{}}
+\rhead{\sf \Semester{} \\  Seminargruppe \Seminargruppe{}}
+\vspace*{0.2cm}
+\begin{center}
+\LARGE \sf \textbf{Übungsblatt \Uebungsblatt{}}
+\end{center}
+\vspace*{0.2cm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Insert your solutions here %%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\Aufgabe{1}
+\begin{enumerate}[a)]
+    \item Formeln lassen sich einfach mit zwei \$-Zeichen den Text integrieren: $\frac{a + b}{c} = 1$ . Für eine Längere Formel, die in einer eigenen Zeile stehen soll können doppelte \$-Zeichen verwendet werden:
+$$ \frac{a + b}{c} = 1 \Rightarrow a + b = c $$
+    \item Nummerierte Formeln bietet die \emph{equation}-Umgebung:
+        \begin{equation}
+            (x+y)^n=\sum_{k=0}^n\binom{n}{k}x^ky^{n-k}
+            \label{myequation}
+        \end{equation}
+        Später kann Formel \ref{myequation} referenziert werden. 
+    \item Mehrzeilige Formeln können durch die \emph{align}-Umgebung realisiert werden:
+        \begin{align*}
+            ggT(15, 12) &= ggT(3, 12) \\
+                        &= ggT(3, 9) \\
+                        &= ggT(3, 6) \\
+                        &= ggT(3, 3) \\
+                        &= 3
+        \end{align*}
+    Eine sehr umfangreiche Hilfe zu Formeln in \LaTeX{} findet sich in \url{http://de.wikipedia.org/wiki/Hilfe:TeX}.
+\end{enumerate}
+
+\Aufgabe{2}
+Quelltexte lassen sich ebenfalls einfach in \LaTeX{} einbetten:
+\begin{lstlisting}
+public class Forloop {
+  public static void main(String[] args) {
+    int factorial = 1;
+    for (int count=1; count < 11; count++) {
+       System.out.println(factorial *= count);
+    }
+  }
+}
+\end{lstlisting}
+
+Auch direkt von einer Datei mit:
+\begin{lstlisting}
+\lstinputlisting{src/Forloop.java}
+\end{lstlisting}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
+
+

@@ -1,0 +1,48 @@
+John unterstützt Parallelverarbeitung mit OpenMP (und auch mit MPI) [natürlich muss dafür ein OpenMp bzw. MPI vorhanden sein]
+
+Wenn ihr Kali Linux sollte bereits John the Ripper mit OpenMp Support installiert sein. 
+Prüfen könnt ihr dies indem ihr "john --help" in ein Terminal Fenster eingebt. 
+Die Antwort sollte wie folgt aussehen: "John the Ripper password cracker, ver: 1.7.9-jumbo-7_omp [linux-x86-64]" (wichtig ist der Zusatz omp).
+
+Damit John auch OpenMP verwendet müsst ihr ihn wie folgt aufrufen: OMP_NUM_THREADS=[x] john --[arguments] passwordfile
+Wobei [x] durch die Anzahl der OpenMP Threads ersetzt werden muss.
+
+Möchtet Ihr John the Ripper mit OpenMP selbst herrunterladen und bauen geht wie folgt vor (im Terminal).
+
+Wechselt in einen Ordner eurer Wahl...dort angekommen geht es weiter mit:
+
+wget http://www.openwall.com/john/g/john-1.7.9-jumbo-7.tar.gz
+tar -xvzf john-1.7.9-jumbo-7.tar.gz
+
+Im Ordner john-1.7.9-jumbo-7/src öffnet ihr die Datei "Makefile" mit einem Editor eurer Wahl (z.B.: nano Makefile). 
+In Zeile 28 und 29 findet ihr die OpenMp flags für die Kompilierung (Zeilennummer anzeigen in nano mit Alt+c). 
+Löscht die # Zeichen in den Zeilen 28 und 29:
+
+OMPFLAGS = -fopenmp
+OMPFLAGS = -fopenmp -msse2
+
+Mit Strg+X könnt ihr die Datei schließen, beantwortet die Frage ob ihr speichern wollt mit Y und bestätigt mit Enter.
+ Nun könnt ihr John für euer System kompilieren.
+
+Dem "make" Befehl müsst ihr noch das richtige System mitgeben. 
+Um zu sehen, welche Systeme unterstützt werden könnt ihr einfach "make" eingeben. Danach baut ihr John mit "make clean [system]" bei mir z.B. make clean linux-x86-64.
+
+Wenn alles erfolgreich verlaufen ist könnt ihr in den Ordner ../run wechseln.
+Dort könnt ihr nun John mit ./john ausführen. 
+Prüft ob OpenMP nun untersützt wird mit ./john --help.
+
+Viel Spass :)
+
+
+----------
+
+Für MPI Support müsst ihr die Zeilen 
+
+CC = mpicc -DHAVE_MPI -DJOHN_MPI_BARRIER -DJOHN_MPI_ABORT
+MPIOBJ = john-mpi.o
+
+im Makefile einkommentieren und das System danach bauen. 
+(Unter MacOSx muss noch in der Datei john-mpi.c #include <omp.h> auskommentiert werden)
+
+Starten geht mit: mpirun -n 4 ./john (mit 4 Kernen)
+Die Anzahl der Kerne sollte wenn sie einmal festgelegt ist nicht während einer "Session" geändert werden.
